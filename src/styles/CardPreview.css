@@ -1,0 +1,454 @@
+/* 容器网格布局 */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+  padding: 20px;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.card-preview-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 320px;
+  margin: 0 auto;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+}
+
+.card-preview-wrapper.loaded {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.card {
+  position: relative;
+  width: 100%;
+  max-width: 320px;
+  margin: 0 auto 30px;
+}
+
+.card-preview {
+  position: relative;
+  width: 100%;
+  min-height: 550px;
+  height: auto;
+  border-radius: 12px;
+  overflow: visible;
+  background-color: #fff;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  padding: 12px 16px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-decoration {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  pointer-events: none;
+}
+
+.top-left {
+  top: 15px;
+  left: 15px;
+  border-right: none;
+  border-bottom: none;
+}
+
+.top-right {
+  top: 15px;
+  right: 15px;
+  border-left: none;
+  border-bottom: none;
+}
+
+.bottom-left {
+  bottom: 15px;
+  left: 15px;
+  border-right: none;
+  border-top: none;
+}
+
+.bottom-right {
+  bottom: 15px;
+  right: 15px;
+  border-left: none;
+  border-top: none;
+}
+
+.card-content-container {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.card-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 15px 12px 15px 12px;
+  box-sizing: border-box;
+  position: relative;
+  z-index: 1;
+  overflow: visible;
+  max-height: none;
+}
+
+.card-content {
+  width: 100%;
+  font-size: 14px;
+  line-height: 1.35;
+  color: inherit;
+  overflow: visible;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  padding-bottom: 5px;
+  margin: 0;
+}
+
+.card-content p {
+  margin: 0.25em 0;
+  text-indent: 2em;
+  text-align: justify;
+}
+
+.card-index {
+  position: absolute;
+  bottom: -25px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 14px;
+  color: #666;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 2px 10px;
+  border-radius: 12px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 3;
+}
+
+.card-index-separator {
+  margin: 0 4px;
+  opacity: 0.6;
+}
+
+/* 主题样式 */
+.card-preview[data-style="modernSimple"] {
+  background-color: #f8f9fa;
+  color: #333;
+}
+
+.card-preview[data-style="gradientPurple"] {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: #fff;
+}
+
+.card-preview[data-style="warmYellow"] {
+  background-color: #ffeaa7;
+  background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23f6ad55' fill-opacity='0.1' fill-rule='evenodd'%3E%3Cpath d='M0 40L40 0H20L0 20M40 40V20L20 40'/%3E%3C/g%3E%3C/svg%3E");
+  color: #333;
+}
+
+.card-preview[data-style="oceanBlue"] {
+  background-color: #e0f7fa;
+  background-image: url("data:image/svg+xml,%3Csvg width='52' height='26' viewBox='0 0 52 26' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2380deea' fill-opacity='0.2'%3E%3Cpath d='M10 10c0-2.21-1.79-4-4-4-3.314 0-6-2.686-6-6h2c0 2.21 1.79 4 4 4 3.314 0 6 2.686 6 6 0 2.21 1.79 4 4 4 3.314 0 6 2.686 6 6 0 2.21 1.79 4 4 4v2c-3.314 0-6-2.686-6-6 0-2.21-1.79-4-4-4-3.314 0-6-2.686-6-6zm25.464-1.95l8.486 8.486-1.414 1.414-8.486-8.486 1.414-1.414z' /%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  color: #333;
+}
+
+.card-preview[data-style="darkNight"] {
+  background-color: #1e1e2e;
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M54.627 0l.83.828-1.415 1.415L51.8 0h2.827zM5.373 0l-.83.828L5.96 2.243 8.2 0H5.374zM48.97 0l3.657 3.657-1.414 1.414L46.143 0h2.828zM11.03 0L7.372 3.657 8.787 5.07 13.857 0H11.03zm32.284 0L49.8 6.485 48.384 7.9l-7.9-7.9h2.83zM16.686 0L10.2 6.485 11.616 7.9l7.9-7.9h-2.83zm20.97 0l9.315 9.314-1.414 1.414L34.828 0h2.83zM22.344 0L13.03 9.314l1.414 1.414L25.172 0h-2.83zM32 0l12.142 12.142-1.414 1.414L30 .828 17.272 13.556l-1.414-1.414L28 0h4zM.284 0l28 28-1.414 1.414L0 2.544V0h.284zM0 5.373l25.456 25.455-1.414 1.415L0 8.2V5.374zm0 5.656l22.627 22.627-1.414 1.414L0 13.86v-2.83zm0 5.656l19.8 19.8-1.415 1.413L0 19.514v-2.83zm0 5.657l16.97 16.97-1.414 1.415L0 25.172v-2.83zM0 28l14.142 14.142-1.414 1.414L0 30.828V28zm0 5.657L11.314 44.97 9.9 46.386l-9.9-9.9v-2.828zm0 5.657L8.485 47.8 7.07 49.212 0 42.143v-2.83zm0 5.657l5.657 5.657-1.414 1.415L0 47.8v-2.83zm0 5.657l2.828 2.83-1.414 1.413L0 53.456v-2.83zM54.627 60L30 35.373 5.373 60H8.2L30 38.2 51.8 60h2.827zm-5.656 0L30 41.03 11.03 60h2.828L30 43.858 46.142 60h2.83zm-5.656 0L30 46.686 16.686 60h2.83L30 49.515 40.485 60h2.83zm-5.657 0L30 52.343 22.344 60h2.83L30 55.172 34.828 60h2.83zM32 60l-2-2-2 2h4zM59.716 0l-28 28 1.414 1.414L60 2.544V0h-.284zM60 5.373L34.544 30.828l1.414 1.415L60 8.2V5.374zm0 5.656L37.373 33.656l1.414 1.414L60 13.86v-2.83zm0 5.656l-19.8 19.8 1.415 1.413L60 19.514v-2.83zm0 5.657l-16.97 16.97 1.414 1.415L60 25.172v-2.83zM60 28L45.858 42.142l1.414 1.414L60 30.828V28zm0 5.657L48.686 44.97l1.415 1.415 9.9-9.9v-2.828zm0 5.657L51.515 47.8l1.414 1.414L60 42.143v-2.83zm0 5.657l-5.657 5.657 1.414 1.415L60 47.8v-2.83zm0 5.657l-2.828 2.83 1.414 1.413L60 53.456v-2.83zM39.9 16.385l1.414-1.414 1.414 1.414-1.414 1.414-1.414-1.414zm-2.83 2.83l1.415-1.414 1.414 1.415-1.414 1.414-1.414-1.415zm-2.827 2.827l1.414-1.414 1.414 1.414-1.414 1.414-1.414-1.414zm-2.83 2.83l1.415-1.415 1.414 1.415-1.414 1.414-1.414-1.415zm-2.827 2.827l1.414-1.414 1.414 1.414-1.414 1.414-1.414-1.414zm-2.83 2.83l1.415-1.415 1.414 1.415-1.414 1.414-1.414-1.415zm-2.827 2.827l1.414-1.414 1.414 1.414-1.414 1.414-1.414-1.414zM18.385 39.9l1.414-1.414 1.414 1.414-1.414 1.414-1.414-1.414zm-2.83-2.83l1.415-1.414 1.414 1.414-1.414 1.414-1.414-1.414zm-2.827-2.827l1.414-1.414 1.414 1.414-1.414 1.414-1.414-1.414zm-2.83-2.83l1.415-1.414 1.414 1.414-1.414 1.414-1.414-1.414zm-2.827-2.827l1.414-1.414 1.414 1.414-1.414 1.414-1.414-1.414zm-2.83-2.83l1.415-1.414 1.414 1.414-1.414 1.414-1.414-1.414zm-2.827-2.827l1.414-1.414 1.414 1.414-1.414 1.414-1.414-1.414z' fill='%23304ffe' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
+  color: #fff;
+}
+
+.card-preview[data-style="springGreen"] {
+  background-color: #e6ffed;
+  background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%2334d399' fill-opacity='0.1' fill-rule='evenodd'%3E%3Ccircle cx='3' cy='3' r='3'/%3E%3Ccircle cx='13' cy='13' r='3'/%3E%3C/g%3E%3C/svg%3E");
+  color: #333;
+}
+
+.card-preview[data-style="cherryBlossom"] {
+  background-color: #FEE7F0;
+  background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12,0 C13.6568542,0 15,1.34314575 15,3 C15,4.65685425 13.6568542,6 12,6 C10.3431458,6 9,4.65685425 9,3 C9,1.34314575 10.3431458,0 12,0 Z M12,18 C13.6568542,18 15,19.3431458 15,21 C15,22.6568542 13.6568542,24 12,24 C10.3431458,24 9,22.6568542 9,21 C9,19.3431458 10.3431458,18 12,18 Z M3,9 C4.65685425,9 6,10.3431458 6,12 C6,13.6568542 4.65685425,15 3,15 C1.34314575,15 0,13.6568542 0,12 C0,10.3431458 1.34314575,9 3,9 Z M21,9 C22.6568542,9 24,10.3431458 24,12 C24,13.6568542 22.6568542,15 21,15 C19.3431458,15 18,13.6568542 18,12 C18,10.3431458 19.3431458,9 21,9 Z M7.75735931,4.24264069 C8.88684309,3.1131569 10.7158156,3.1131569 11.8452994,4.24264069 C12.9747832,5.37212447 12.9747832,7.20109701 11.8452994,8.33058079 C10.7158156,9.46006458 8.88684309,9.46006458 7.75735931,8.33058079 C6.62787553,7.20109701 6.62787553,5.37212447 7.75735931,4.24264069 Z M17.2426407,15.2426407 C18.3721245,14.1131569 20.201097,14.1131569 21.3305808,15.2426407 C22.4600646,16.3721245 22.4600646,18.201097 21.3305808,19.3305808 C20.201097,20.4600646 18.3721245,20.4600646 17.2426407,19.3305808 C16.1131569,18.201097 16.1131569,16.3721245 17.2426407,15.2426407 Z M4.24264069,17.2426407 C5.37212447,16.1131569 7.20109701,16.1131569 8.33058079,17.2426407 C9.46006458,18.3721245 9.46006458,20.201097 8.33058079,21.3305808 C7.20109701,22.4600646 5.37212447,22.4600646 4.24264069,21.3305808 C3.1131569,20.201097 3.1131569,18.3721245 4.24264069,17.2426407 Z M15.2426407,4.24264069 C16.3721245,3.1131569 18.201097,3.1131569 19.3305808,4.24264069 C20.4600646,5.37212447 20.4600646,7.20109701 19.3305808,8.33058079 C18.201097,9.46006458 16.3721245,9.46006458 15.2426407,8.33058079 C14.1131569,7.20109701 14.1131569,5.37212447 15.2426407,4.24264069 Z' fill='%23FFACC7' fill-opacity='0.18'/%3E%3C/svg%3E");
+  color: #333;
+}
+
+.card-preview[data-style="marbleWhite"] {
+  background: linear-gradient(to right, #f5f7fa, #f0f2f5);
+  background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23bdc3c7' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
+  color: #333;
+}
+
+.card-preview[data-style="goldenAutumn"] {
+  background: linear-gradient(to right, #ffefba, #ffffff);
+  background-image: url("data:image/svg+xml,%3Csvg width='52' height='26' viewBox='0 0 52 26' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ff9800' fill-opacity='0.1'%3E%3Cpath d='M10 10c0-2.21-1.79-4-4-4-3.314 0-6-2.686-6-6h2c0 2.21 1.79 4 4 4 3.314 0 6 2.686 6 6 0 2.21 1.79 4 4 4 3.314 0 6 2.686 6 6 0 2.21 1.79 4 4 4v2c-3.314 0-6-2.686-6-6 0-2.21-1.79-4-4-4-3.314 0-6-2.686-6-6zm25.464-1.95l8.486 8.486-1.414 1.414-8.486-8.486 1.414-1.414z' /%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  color: #333;
+}
+
+.card-preview[data-style="galaxyDark"] {
+  background: linear-gradient(to bottom, #0f2027, #203a43, #2c5364);
+  background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
+  color: #fff;
+}
+
+.card-preview[data-style="darkNight"] .card-content,
+.card-preview[data-style="galaxyDark"] .card-content {
+  color: #fff;
+}
+
+/* 卡片悬停效果 */
+.card-preview::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: inherit;
+  background-position: center;
+  background-size: cover;
+  transition: transform 1s ease;
+  z-index: -1;
+}
+
+.card-preview:hover::before {
+  transform: scale(1.05);
+}
+
+/* 修改卡片发光效果以匹配新的颜色方案 */
+.card-preview:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.card-preview::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 20px;
+  background: linear-gradient(120deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.2));
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+}
+
+.card-preview:hover::after {
+  opacity: 1;
+}
+
+.card-preview[data-style="warmYellow"]:hover,
+.card-preview[data-style="goldenAutumn"]:hover {
+  box-shadow: 0 15px 30px rgba(242, 208, 164, 0.3), 0 0 15px rgba(245, 200, 189, 0.3);
+}
+
+.card-preview[data-style="oceanBlue"]:hover {
+  box-shadow: 0 15px 30px rgba(181, 232, 247, 0.3), 0 0 15px rgba(208, 196, 230, 0.3);
+}
+
+.card-preview[data-style="gradientPurple"]:hover {
+  box-shadow: 0 15px 30px rgba(196, 167, 231, 0.3), 0 0 15px rgba(246, 214, 246, 0.3);
+}
+
+.card-preview[data-style="springGreen"]:hover {
+  box-shadow: 0 15px 30px rgba(208, 240, 192, 0.3), 0 0 15px rgba(194, 232, 232, 0.3);
+}
+
+.card-preview[data-style="cherryBlossom"]:hover {
+  box-shadow: 0 15px 30px rgba(249, 224, 217, 0.3), 0 0 15px rgba(248, 208, 224, 0.3);
+}
+
+.card-preview[data-style="darkNight"]:hover,
+.card-preview[data-style="galaxyDark"]:hover {
+  box-shadow: 0 15px 30px rgba(41, 50, 65, 0.3), 0 0 15px rgba(76, 124, 155, 0.3);
+}
+
+/* 移除旧的响应式样式 */
+@media (max-width: 768px) {
+  .card-preview {
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  }
+}
+
+@media (max-width: 480px) {
+  .card-preview {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  }
+}
+
+.text-paragraph {
+  margin: 8px 0;
+  line-height: 1.5;
+}
+
+/* 卡片容器布局 */
+.cards-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);  /* 默认三列 */
+  gap: 16px;
+  padding: 16px;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+/* 基础卡片样式 */
+.card {
+  width: 100%;
+  padding-bottom: 177.78%;  /* 16:9 的反比例 */
+  position: relative;
+}
+
+.card-inner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* 装饰边框 */
+.card-border {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.card-border span {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.border-top-left {
+  top: 12px;
+  left: 12px;
+  border-right: none;
+  border-bottom: none;
+}
+
+.border-top-right {
+  top: 12px;
+  right: 12px;
+  border-left: none;
+  border-bottom: none;
+}
+
+.border-bottom-left {
+  bottom: 12px;
+  left: 12px;
+  border-right: none;
+  border-top: none;
+}
+
+.border-bottom-right {
+  bottom: 12px;
+  right: 12px;
+  border-left: none;
+  border-top: none;
+}
+
+/* 替换页码指示器样式为页脚文字样式 */
+.card-footer {
+  display: none;
+}
+
+.card-footer-text {
+  display: none;
+}
+
+/* 主题样式 */
+.card-inner[data-style="modernSimple"] {
+  background: linear-gradient(135deg, #f8fafd, #f0f2f6);
+  color: #2d3748;
+}
+
+.card-inner[data-style="gradientPurple"] {
+  background: linear-gradient(135deg, #c4a7e7, #f6d6f6);
+  color: #2d2b38;
+}
+
+.card-inner[data-style="warmYellow"] {
+  background: linear-gradient(120deg, #f8e9c6, #fad4c0);
+  color: #5c4a30;
+}
+
+.card-inner[data-style="oceanBlue"] {
+  background: linear-gradient(135deg, #b5e8f7, #d0c4e6);
+  color: #2e3b4c;
+}
+
+.card-inner[data-style="darkNight"] {
+  background: linear-gradient(to right, #293241, #3d5a80, #4c7c9b);
+  color: #f0f4f8;
+}
+
+/* 响应式布局 */
+@media screen and (max-width: 1024px) {
+  .cards-container {
+    grid-template-columns: repeat(2, 1fr);  /* 平板两列 */
+    gap: 12px;
+    padding: 12px;
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .cards-container {
+    grid-template-columns: repeat(1, 1fr);  /* 手机单列 */
+    gap: 16px;
+    padding: 16px;
+  }
+
+  .card-body {
+    padding: 20px;
+  }
+
+  .card-content {
+    font-size: 14px;
+  }
+
+  .card-border span {
+    width: 12px;
+    height: 12px;
+  }
+}
+
+/* 暗色主题文字阴影 */
+.card-inner[data-style="darkNight"] .card-content,
+.card-inner[data-style="galaxyDark"] .card-content {
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+/* 悬停效果 */
+.card-inner:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+}
