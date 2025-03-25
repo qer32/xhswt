@@ -4,6 +4,7 @@
   "description": "将长文转换为精美的卡片并批量下载",
   "main": "index.js",
   "scripts": {
+    "preinstall": "npm cache clean --force",
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview"
